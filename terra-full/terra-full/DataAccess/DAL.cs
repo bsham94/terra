@@ -91,22 +91,26 @@ namespace terra
             }
             if (reader != null && reader.Read())
             {
-                switch (item.GetType().Name)
-                {
-                    case ("User"):
-                        User newUser = new User();
-                        newUser.Fill(reader);
-                        item.command.Connection.Close();
-                        return newUser;
-                    case ("Field"):
-                        Field newField = new Field();
-                        newField.Fill(reader);
-                        item.command.Connection.Close();
-                        return newField;
-                    default:
-                        item.command.Connection.Close();
-                        break;
-                }
+                IDatabase result = IDatabaseFactory.GetObject(item.GetType().Name);
+                result.Fill(reader)
+                item.command.Connection.Close();
+                return result;
+                // switch (item.GetType().Name)
+                // {
+                //     case ("User"):
+                //         User newUser = new User();
+                //         newUser.Fill(reader);
+                //         item.command.Connection.Close();
+                //         return newUser;
+                //     case ("Field"):
+                //         Field newField = new Field();
+                //         newField.Fill(reader);
+                //         item.command.Connection.Close();
+                //         return newField;
+                //     default:
+                //         item.command.Connection.Close();
+                //         break;
+                // }
             }
             if (item.command.Connection != null && item.command.Connection.State.Equals(ConnectionState.Open))
             {
@@ -137,68 +141,77 @@ namespace terra
             if (reader != null && reader.Read())
             {
                 List<IDatabase> list = new List<IDatabase>();
+                IDatabase firstItem = IDatabaseFactory.GetObject(item.GetType().Name);
+                do{
+                    firstItem.Fill(reader);
+                    list.Add(newUser);
+                } while (reader.Read());
+                firstItem.Fill(reader);
+                item.command.Connection.Close();
+                return list;
+
                 //Fill the correct dataobjects with the results and add to the result list.  
-                switch (item.GetType().Name)
-                {
-                    case ("User"):
-                        do
-                        {
-                            User newUser = new User();
-                            newUser.Fill(reader);
-                            list.Add(newUser);
-                        } while (reader.Read());
-                        item.command.Connection.Close();
-                        return list;
-                    case ("Field"):
-                        do
-                        {
-                            Field newField = new Field();
-                            newField.Fill(reader);
-                            list.Add(newField);
-                        } while (reader.Read());
-                        item.command.Connection.Close();
-                        return list;
-                    case ("EarthData"):
-                        do
-                        {
-                            EarthData earthData = new EarthData();
-                            earthData.Fill(reader);
-                            list.Add(earthData);
-                        } while (reader.Read());
-                        item.command.Connection.Close();
-                        return list;
-                    case ("EarthDataTypes"):
-                        do
-                        {
-                            EarthDataTypes earthDataTypes = new EarthDataTypes();
-                            earthDataTypes.Fill(reader);
-                            list.Add(earthDataTypes);
-                        } while (reader.Read());
-                        item.command.Connection.Close();
-                        return list;
-                    case ("FieldSpecific"):
-                        do
-                        {
-                            FieldSpecific fieldSpecific = new FieldSpecific();
-                            fieldSpecific.Fill(reader);
-                            list.Add(fieldSpecific);
-                        } while (reader.Read());
-                        item.command.Connection.Close();
-                        return list;
-                    case ("DataHandler"):
-                        do
-                        {
-                            DataHandler dataHandler = new DataHandler();
-                            dataHandler.Fill(reader);
-                            list.Add(dataHandler);
-                        } while (reader.Read());
-                        item.command.Connection.Close();
-                        return list;
-                    default:
-                        item.command.Connection.Close();
-                        break;
-                }
-            }
+            //     switch (item.GetType().Name)
+            //     {
+            //         case ("User"):
+            //             do
+            //             {
+            //                 User newUser = new User();
+            //                 newUser.Fill(reader);
+            //                 list.Add(newUser);
+            //             } while (reader.Read());
+            //             item.command.Connection.Close();
+            //             return list;
+            //         case ("Field"):
+            //             do
+            //             {
+            //                 Field newField = new Field();
+            //                 newField.Fill(reader);
+            //                 list.Add(newField);
+            //             } while (reader.Read());
+            //             item.command.Connection.Close();
+            //             return list;
+            //         case ("EarthData"):
+            //             do
+            //             {
+            //                 EarthData earthData = new EarthData();
+            //                 earthData.Fill(reader);
+            //                 list.Add(earthData);
+            //             } while (reader.Read());
+            //             item.command.Connection.Close();
+            //             return list;
+            //         case ("EarthDataTypes"):
+            //             do
+            //             {
+            //                 EarthDataTypes earthDataTypes = new EarthDataTypes();
+            //                 earthDataTypes.Fill(reader);
+            //                 list.Add(earthDataTypes);
+            //             } while (reader.Read());
+            //             item.command.Connection.Close();
+            //             return list;
+            //         case ("FieldSpecific"):
+            //             do
+            //             {
+            //                 FieldSpecific fieldSpecific = new FieldSpecific();
+            //                 fieldSpecific.Fill(reader);
+            //                 list.Add(fieldSpecific);
+            //             } while (reader.Read());
+            //             item.command.Connection.Close();
+            //             return list;
+            //         case ("DataHandler"):
+            //             do
+            //             {
+            //                 DataHandler dataHandler = new DataHandler();
+            //                 dataHandler.Fill(reader);
+            //                 list.Add(dataHandler);
+            //             } while (reader.Read());
+            //             item.command.Connection.Close();
+            //             return list;
+            //         default:
+            //             item.command.Connection.Close();
+            //             break;
+            //     }
+            // }
             if (item.command.Connection != null && item.command.Connection.State.Equals(ConnectionState.Open))
             {
                 item.command.Connection.Close();
