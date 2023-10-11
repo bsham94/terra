@@ -1,5 +1,3 @@
-# Capstone-TERRA
+# TERRA
 
-# Project Scope
-
-TERRA allows the user to keep track of their fields while looking at specific details pertaining to each field. The system has the ability to track field details such as: yield, seeds planted, fertilizer use, pesticide use, and other details that may come to light as progress is made. Terra has the ability to visualize Nasa’s Earth Data overtop of the users fields to give them information about the quality of their field overtime.
+"Terra" stands at the confluence of modern web technology and agriculture, serving as a beacon of innovation in the realm of agritech. Designed as an interactive website, Terra empowers farmers by granting them access to crucial satellite data concerning their fields and properties. With a user-friendly frontend crafted with React and the power of Mapbox GL JS, users can glean real-time insights into the conditions and status of their lands. The underlying architecture, built upon the .NET Core framework, seamlessly interfaces with a PostgreSQL database, ensuring data integrity and reliability. Furthermore, Terra boasts of advanced features like user authentication and validation via Firebase, and even taps into the vast repositories of the NASA Earth Data API through Python scripts to fetch pertinent information. The entire system, hosted on the Microsoft Azure Cloud Platform, exemplifies the perfect marriage of farming know-how with the boundless possibilities of the digital age, making Terra not just a tool, but a revolution in agricultural analytics.
